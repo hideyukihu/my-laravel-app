@@ -1,6 +1,6 @@
 <?php
 
-var_dump($posts);
+
 
 ?>
 
@@ -24,8 +24,12 @@ var_dump($posts);
     <li>{{ $post }}</li>
     @endforeach --}}
 
-        @forelse ($posts as $post)
-            <li>{{ $post }}</li>
+        @forelse ($posts as $index => $post)
+            <li>
+                <a href="/posts/{{ $index }}">
+                    {{ $post }}
+                </a>
+            </li>
         @empty
             <li>No Pot yet</li>
         @endforelse
