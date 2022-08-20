@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $posts = [
-        'TitleA',
-        'TitleB',
-        'TitleC',
+     $posts = [
+    //     'TitleA',
+    //     'TitleB',
+    //     'TitleC',
 
-    ];
+     ];
 
     return view('index')->with(['posts' => $posts]);
 });
