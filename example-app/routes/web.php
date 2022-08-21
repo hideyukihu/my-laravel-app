@@ -21,6 +21,9 @@ Route::get('/sample', [\App\Http\Controllers\sample\IndexController::class, 'sho
 
 Route::get('/sample/{id}', [\App\Http\Controllers\sample\IndexController::class, 'showId']);
 
+Route::get('/tweet', \App\Http\Controllers\Tweet\IndexController::class);
+
+
 
 
 
