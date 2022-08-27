@@ -29,6 +29,7 @@ Route::get('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\update\IndexCo
 
 Route::put('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\update\PutController::class)->name('tweet.update.put')->where('tweetId', '[0-9]+');
 
+Route::delete('/tweet/delete/{tweetId}', \App\Http\Controllers\Tweet\DeleteController::class)->name('tweet.delete');
 
 
 
