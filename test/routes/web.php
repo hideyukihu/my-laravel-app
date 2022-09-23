@@ -30,7 +30,9 @@ Route::get('/dashboard', function () {
 Route::get('component-test1', [ComponentTestController::class, 'showComponent1']);
 Route::get('component-test2', [ComponentTestController::class, 'showComponent2']);
 Route::get('/servicecontainer-test', [LifeCycleTestController::class, 'showServiceContainerTest']);
-Route::get('/tweet', \App\Http\Controllers\Tweet\IndexController::class);
+Route::get('/tweet', \App\Http\Controllers\Tweet\IndexController::class)->name('tweet.index');
+Route::post('/tweet/create', \App\Http\Controllers\Tweet\CreateController::class)->name('tweet.create');
+
 
 
 
