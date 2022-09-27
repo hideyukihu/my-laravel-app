@@ -10,14 +10,22 @@
 
 <body>
     <h1>つぶやきアプリ</h1>
+    @if (session('feedback.success'))
+        <p style="color: blue">{{ session('feedback.success') }}</p>
+    @endif
     <div>
         @foreach ($tweets as $tweet)
             <div>
-                <div>{{$tweet->content}}</div>
+                <div>{{ $tweet->content }}</div>
             </div>
             <div>
-                <a href="{{route('tweet.update.index', ['tweetId'=> $tweet->id])}}">編集</a>
+                <a href="{{ route('tweet.update.index', ['tweetId' => $tweet->id]) }}">編集</a>
             </div>
+            <form action="{{ route('tweet.delete', ['tweetId' => $tweet->id]) }}" method="POST">
+                @method('DELETE')
+                @csrf
+                <button type="submit">削除</button>
+            </form>
         @endforeach
     </div>
 
