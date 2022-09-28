@@ -1,12 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ComponentTestController;
-use App\Http\Controllers\LifeCycleTestController;
-
-
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +21,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+
+require __DIR__.'/auth.php';
+
 Route::get('component-test1', [ComponentTestController::class, 'showComponent1']);
 Route::get('component-test2', [ComponentTestController::class, 'showComponent2']);
 Route::get('/servicecontainer-test', [LifeCycleTestController::class, 'showServiceContainerTest']);
@@ -36,10 +33,3 @@ Route::get('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\IndexCo
 Route::put('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\PutController::class)->name('tweet.update.put')->where('tweetId', '[0-9]+');
 Route::delete('/tweet/delete/{tweetId}', \App\Http\Controllers\Tweet\DeleteController::class)->name('tweet.delete');
 
-
-
-
-
-
-
-require __DIR__.'/auth.php';
