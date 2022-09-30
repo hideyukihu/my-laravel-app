@@ -21,6 +21,7 @@ class TweetsSeeder extends Seeder
         //
         DB::table('tweets')->insert(
             [
+                'user_id' => 1,
                 'content' => Str::random(100),
                 'created_at' => now(),
                 'updated_at' => now()
