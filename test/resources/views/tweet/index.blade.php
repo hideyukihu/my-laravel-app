@@ -16,32 +16,36 @@
     <div>
         @foreach ($tweets as $tweet)
             <div>
-                <div>{{ $tweet->content }}</div>
+                <div>{{ $tweet->content }}</div><br>
             </div>
-            <div>
-                <a href="{{ route('tweet.update.index', ['tweetId' => $tweet->id]) }}">編集</a>
-            </div>
-            <form action="{{ route('tweet.delete', ['tweetId' => $tweet->id]) }}" method="POST">
-                @method('DELETE')
-                @csrf
-                <button type="submit">削除</button>
-            </form>
+            @auth
+                <div>
+                    <a href="{{ route('tweet.update.index', ['tweetId' => $tweet->id]) }}">編集</a>
+                </div>
+                <form action="{{ route('tweet.delete', ['tweetId' => $tweet->id]) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit">削除</button>
+                </form>
+            @endauth
         @endforeach
     </div>
 
-    <div>
-        <p>投稿フォーム</p>
-        <form action="{{ route('tweet.create') }}" method="post">
-            @csrf
-            <label for="tweet-content">つぶやき</label>
-            <span>140字まで</span>
-            <textarea name="tweet" id="tweet-content" type="text" cols="30" rows="10" placeholder="つぶやき入力"></textarea>
-            @error('tweet')
-                <p style="color: red;">{{ $message }}</p>
-            @enderror
-            <button type="submit">投稿</button>
-        </form>
-    </div>
+    @auth
+        <div>
+            <p>投稿フォーム</p>
+            <form action="{{ route('tweet.create') }}" method="post">
+                @csrf
+                <label for="tweet-content">つぶやき</label>
+                <span>140字まで</span>
+                <textarea name="tweet" id="tweet-content" type="text" cols="30" rows="10" placeholder="つぶやき入力"></textarea>
+                @error('tweet')
+                    <p style="color: red;">{{ $message }}</p>
+                @enderror
+                <button type="submit">投稿</button>
+            </form>
+        </div>
+    @endauth
 </body>
 
 </html>
