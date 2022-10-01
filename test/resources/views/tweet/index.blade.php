@@ -16,7 +16,7 @@
     <div>
         @foreach ($tweets as $tweet)
             <div>
-                <div>{{ $tweet->content }}</div><br>
+                <div>{{ $tweet->content }}</div> by {{$tweet->user->name}}<br>
             </div>
             @auth
                 <div>
