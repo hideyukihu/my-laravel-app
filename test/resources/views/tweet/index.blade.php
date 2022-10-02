@@ -10,15 +10,30 @@
 
 <body>
     <h1>つぶやきアプリ</h1>
-    @if (session('feedback.success'))
-        <p style="color: blue">{{ session('feedback.success') }}</p>
-    @endif
+    @auth
+        <div>
+            <p>投稿フォーム</p>
+            @if (session('feedback.success'))
+                <p style="color: blue">{{ session('feedback.success') }}</p>
+            @endif
+            <form action="{{ route('tweet.create') }}" method="post">
+                @csrf
+                <label for="tweet-content">つぶやき</label>
+                <span>140字まで</span>
+                <textarea name="tweet" id="tweet-content" type="text" cols="30" rows="5" placeholder="つぶやき入力"></textarea>
+                @error('tweet')
+                    <p style="color: red;">{{ $message }}</p>
+                @enderror
+                <button type="submit">投稿</button>
+            </form>
+        </div>
+    @endauth
     <div>
         @foreach ($tweets as $tweet)
             <div>
-                <div>{{ $tweet->content }}</div> by {{$tweet->user->name}}<br>
+                <div>{{ $tweet->content }}</div> by {{ $tweet->user->name }}<br>
             </div>
-            @auth
+            @if (\Illuminate\Support\facades\Auth::id() === $tweet->user_id)
                 <div>
                     <a href="{{ route('tweet.update.index', ['tweetId' => $tweet->id]) }}">編集</a>
                 </div>
@@ -27,25 +42,12 @@
                     @csrf
                     <button type="submit">削除</button>
                 </form>
-            @endauth
+            @else
+                編集できません
+            @endif
         @endforeach
     </div>
 
-    @auth
-        <div>
-            <p>投稿フォーム</p>
-            <form action="{{ route('tweet.create') }}" method="post">
-                @csrf
-                <label for="tweet-content">つぶやき</label>
-                <span>140字まで</span>
-                <textarea name="tweet" id="tweet-content" type="text" cols="30" rows="10" placeholder="つぶやき入力"></textarea>
-                @error('tweet')
-                    <p style="color: red;">{{ $message }}</p>
-                @enderror
-                <button type="submit">投稿</button>
-            </form>
-        </div>
-    @endauth
 </body>
 
 </html>
