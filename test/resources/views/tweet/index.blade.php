@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    @vite('resources/css/app.css')
 </head>
 
-<body>
-    <h1>つぶやきアプリ</h1>
+<body class="container mx-auto">
+    <h1 class="text-4xl text-center mx-auto">つぶやきアプリ</h1>
     @auth
         <div>
             <p>投稿フォーム</p>
@@ -20,11 +21,11 @@
                 @csrf
                 <label for="tweet-content">つぶやき</label>
                 <span>140字まで</span>
-                <textarea name="tweet" id="tweet-content" type="text" cols="30" rows="5" placeholder="つぶやき入力"></textarea>
+                <textarea name="tweet" id="tweet-content" type="text" cols="30" rows="5" placeholder="つぶやき入力" class="focus:ring-blue-400 focus-border-blue-400 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"></textarea>
                 @error('tweet')
-                    <p style="color: red;">{{ $message }}</p>
+                    <p style="color: red;" class="mt-2 text-sm text-gray-500">{{ $message }}</p>
                 @enderror
-                <button type="submit">投稿</button>
+                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">投稿</button>
             </form>
         </div>
     @endauth
