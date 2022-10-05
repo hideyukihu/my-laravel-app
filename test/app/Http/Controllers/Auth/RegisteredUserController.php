@@ -41,19 +41,22 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
+        $newuser = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        event(new Registered($newuser));
 
-        Auth::login($user);
+        Auth::login($newuser);
 
         //メールの送信処理の追加
-        $mailer->to('test@example.com')
-            ->send(new NewUserIntroduction());
+        $allUser = User::get();
+        foreach($allUser as $user) {
+            $mailer->to($user->email)
+                ->send(new NewUserIntroduction($user, $newuser));
+        }
 
         return redirect(RouteServiceProvider::HOME);
     }
