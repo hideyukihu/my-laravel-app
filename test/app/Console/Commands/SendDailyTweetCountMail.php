@@ -40,6 +40,15 @@ class SendDailyTweetCountMail extends Command
      */
     public function handle()
     {
+        $tweetCount = $this->tweetService->countYesterdayTweets();
+
+        $users = User::get();
+
+        foreach($users as $user) {
+            $this->mailer->to($user->email)
+            ->send(new DailyTweetCount($user, $tweetCount));
+        }
+        
         return 0;
     }
 }
